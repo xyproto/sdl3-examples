@@ -1,52 +1,92 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
+S Compiled Object files
+*.slo
 *.lo
+*.o
+*.obj
 
-# Shared objects (inc. Windows DLLs)
-*.dll
+# Compiled Dynamic libraries
 *.so
-*.so.*
 *.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Crystal
+crystal/sdl.cr/
+crystal/lib
+crystal/bin/
+
+# OCaml
+*.cmi
+*.cmx
 
 # Executables
 *.exe
 *.out
 *.app
-*.i*86
-*.x86_64
-*.hex
+main
+small
+go/go
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Nimrod cache
+nimcache
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Rust
+rust/sdl2/
+Cargo.lock
+
+# C++
+c++20-cxx/c++20-cxx
+c*/*.asm
+
+# Temporary databases
+*.dblite
+
+# CMake
+build/
+CMakeCache.txt
+CMakeFiles
+inst/
+
+# Ada
+*.ali
+*.ads
+*.adb
+*.adb.std*
+*.bexch
+
+# Zig
+zig/zig-cache
+zig/*.s
+zig/zig
+
+# Common Lisp
+lisp/quicklisp/
+lisp/quicklisp.lisp
+
+# FreeBASIC
+freebasic/main
+
+# Odin
+odin/main
+
+# Object Pascal
+fpc/*.res
+objectpascal/*.res
+*.ppu
+fpc/SDL2/
+objectpascal/SDL2/
+
+# Scala
+scalanative/project/build.properties
+scalanative/target/
+scalanative/project/target/
+scalanative/project/project/
+scalanative/main.jar
+
+# Dart
+dart/.dart_tool
+dart/pubspec.lock
