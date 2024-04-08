@@ -90,3 +90,6 @@ scalanative/main.jar
 # Dart
 dart/.dart_tool
 dart/pubspec.lock
+
+# C++
+c++23-cmake/c++23-cmake
