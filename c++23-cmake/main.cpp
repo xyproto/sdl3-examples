@@ -20,8 +20,7 @@ auto main() -> int
         return 1;
     }
 
-    auto ren
-        = sdl3::make_renderer(win.get(), nullptr, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    auto ren = sdl3::make_renderer(win.get(), nullptr, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!ren) {
         cerr << "Error creating renderer: " << SDL_GetError() << endl;
         return 1;
@@ -45,7 +44,29 @@ auto main() -> int
         return 1;
     }
 
-    for (int i = 0; i < 20; i++) {
+    SDL_Event event;
+    bool quit = false;
+    auto startTime = SDL_GetTicks();
+
+    while (!quit) {
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+            case SDL_EVENT_QUIT:
+                quit = true;
+                break;
+            case SDL_EVENT_KEY_DOWN:
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    quit = true;
+                }
+                break;
+            }
+        }
+
+        auto elapsedTime = SDL_GetTicks() - startTime;
+        if (elapsedTime > 2000) {
+            break;
+        }
+
         SDL_RenderClear(ren.get());
         SDL_RenderTexture(ren.get(), tex.get(), nullptr, nullptr);
         SDL_RenderPresent(ren.get());
