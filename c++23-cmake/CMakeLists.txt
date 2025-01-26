@@ -9,7 +9,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ../include)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_compile_definitions(${PROJECT_NAME} PRIVATE IMGDIR="../img/")
 
-# For macOS M2 systems with SDL3 installed via Homebrew
+# For macOS with SDL3 installed via Homebrew
 list(APPEND CMAKE_MODULE_PATH "/usr/local/lib/cmake/SDL3" "/opt/homebrew/lib/cmake/SDL3")
 list(APPEND CMAKE_PREFIX_PATH "/usr/local" "/opt/homebrew")
 
