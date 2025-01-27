@@ -1,8 +1,6 @@
 #pragma once
-
 #include <SDL3/SDL.h>
 #include <memory>
-
 namespace sdl3 {
 
 // Very useful function from Eric Scott Barr:
@@ -28,9 +26,8 @@ inline SDL_System* SDL_CreateSDL(Uint32 flags)
 }
 
 // SDL_DestroySDL ends the use of SDL
-inline void SDL_DestroySDL(SDL_System* init_status)
+inline void SDL_DestroySDL(SDL_System*)
 {
-    delete init_status; // Delete the int that contains the return value from SDL_Init
     SDL_Quit();
 }
 
@@ -46,24 +43,30 @@ inline sdlsystem_ptr_t make_sdlsystem(Uint32 flags)
     return make_resource(SDL_CreateSDL, SDL_DestroySDL, flags);
 }
 
-// Create a window (that contains both a SDL_Window and the destructor for SDL_Windows)
-inline window_ptr_t make_window(const char* title, int w, int h, Uint32 flags)
+// Create a window and renderer together
+inline std::pair<window_ptr_t, renderer_ptr_t> make_window_and_renderer(
+    const char* title,
+    int width,
+    int height,
+    SDL_WindowFlags flags)
 {
-    return make_resource(SDL_CreateWindow, SDL_DestroyWindow, title, w, h, flags);
-}
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
 
-// Create a renderer given a window, containing both the renderer and the destructor
-// render_driver_name can be nullptr
-inline renderer_ptr_t make_renderer(SDL_Window* win, const char* render_driver_name, Uint32 flags)
-{
-    return make_resource(SDL_CreateRenderer, SDL_DestroyRenderer, win, render_driver_name, flags);
+    if (!SDL_CreateWindowAndRenderer(title, width, height, flags, &window, &renderer)) {
+        return { window_ptr_t(nullptr, SDL_DestroyWindow),
+            renderer_ptr_t(nullptr, SDL_DestroyRenderer) };
+    }
+
+    return { window_ptr_t(window, SDL_DestroyWindow),
+        renderer_ptr_t(renderer, SDL_DestroyRenderer) };
 }
 
 // Create a surface from a bmp file, containing both the surface and the destructor
-inline surf_ptr_t make_bmp(SDL_RWops* sdlfile)
+inline surf_ptr_t make_bmp(SDL_IOStream* sdlfile)
 {
     // May throw an exception if sdlfile is nullptr
-    return make_resource(SDL_LoadBMP_RW, SDL_DestroySurface, sdlfile, 1);
+    return make_resource(SDL_LoadBMP_IO, SDL_DestroySurface, sdlfile, 1);
 }
 
 // Create a texture from a renderer and a surface
