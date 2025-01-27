@@ -4,16 +4,16 @@ SDL3, C++23 and CMake
 Requirements
 ------------
 
+* C++ compiler that supports C++23, such as a recent version of GCC (`g++`) or Clang (`clang++`).
 * CMake
-* Compiler that supports C++23 (recent versions of `g++` or `clang++`, like GCC 11, supports `-std=c++2b`)
+* Make (or `gmake` on BSD).
 * SDL3
-* ninja (or `make`, just drop the `-GNinja` flag and build with `make`)
 
-One way of building with C++23, SDL3, CMake and Ninja
------------------------------------------------------
+One way of building with C++23, CMake, Make and SDL3
+----------------------------------------------------
 
-    cmake -S . -B build -G Ninja
-    ninja -C build
+    cmake -B build -D CMAKE_BUILD_TYPE=Release -S .
+    make -C build
 
 Running
 -------
@@ -23,4 +23,4 @@ Running
 Cleaning up the binary file and build directory
 -----------------------------------------------
 
-    rm -rf build/
+    rm -rf build
